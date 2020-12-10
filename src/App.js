@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import configStore from "./store/configStore"
+import { login } from "./util/login"
+import { Provider } from "react-redux"
+import { getUser } from "./api/task"
+import { addTask } from "./actions/task"
+import Task from "./components/Task"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const store = configStore()
+const payload = {
+    email: "spicebluetest1@gmail.com",
+    password: "12345678",
 }
 
-export default App;
+login(payload)
+
+function App() {
+    return (
+        <Provider store={store}>
+            <Task />
+        </Provider>
+    )
+}
+
+export default App
