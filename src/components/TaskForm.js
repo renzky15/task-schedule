@@ -73,7 +73,7 @@ export class TaskForm extends Component {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"))
         this.setState({
             currentUser,
-            assigned_user: currentUser.result.user_id,
+            assigned_user: currentUser.result.id,
         })
     }
 
