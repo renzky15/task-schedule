@@ -14,7 +14,7 @@ export class TaskForm extends Component {
             task_msg: props.task ? props.task.task_msg : "",
             task_date: props.task ? moment(props.task.task_date) : moment(),
             task_time: props.task ? props.task.task_time : 0,
-            assigned_user: props.task ? props.task.assigned_user : "",
+            // assigned_user: props.task ? props.task.assigned_user : "",
             calendarFocused: false,
         }
     }
