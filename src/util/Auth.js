@@ -7,13 +7,9 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null)
 
     const [pending, setPending] = useState(true)
-    const payload = {
-        email: "spicebluetest1@gmail.com",
-        password: "12345678",
-    }
 
     useEffect(() => {
-        if (login(payload)) {
+        if (login()) {
             getUser().then((result) => {
                 setCurrentUser(result)
                 setPending(false)
@@ -25,7 +21,7 @@ export const AuthProvider = ({ children }) => {
                 )
             })
         }
-    }, [payload])
+    }, [])
 
     if (pending) {
         return <div className="loader"></div>

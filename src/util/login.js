@@ -1,5 +1,9 @@
 import axios from "axios"
-export async function login(payload) {
+const payload = {
+    email: "spicebluetest1@gmail.com",
+    password: "12345678",
+}
+export async function login() {
     const config = {
         Accept: "application/json",
         "Content-Type": "application/json",
