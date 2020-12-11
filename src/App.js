@@ -1,8 +1,7 @@
 import "./App.css"
 import configStore from "./store/configStore"
 import { Provider } from "react-redux"
-import { getAllTask } from "./api/task"
-import { addTask } from "./actions/task"
+
 import Task from "./components/Task"
 
 import { AuthProvider } from "./util/Auth"
