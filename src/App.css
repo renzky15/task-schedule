@@ -82,6 +82,14 @@ h4 {
 }
 .date-time-container {
     display: flex;
+    justify-content: space-between;
+}
+.date-container {
+    margin-right: 20px;
+}
+.time-container input {
+    width: 90px;
+    height: 40px;
 }
 .assign-user-container {
     display: flex;
@@ -123,19 +131,28 @@ h4 {
     box-shadow: var(--box-shadow);
 }
 .task-lists {
-}
-.task-lists .list {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
 }
+.task-lists .list {
+    display: flex;
+    flex-direction: column;
+}
+.task-lists .list label {
+}
+.task-lists .list #date-label {
+    margin-top: -15px;
+    font-size: 12px;
+    color: red;
+}
 
-.task-lists .list button {
+.task-lists .btn-list button {
     border: none;
     background-color: transparent;
 
     text-decoration: none;
 }
-.task-lists .list .list-delete-btn {
+.task-lists .list .btn-list .list-delete-btn {
     color: red;
 }

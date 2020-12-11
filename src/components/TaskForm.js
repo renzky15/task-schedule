@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { SingleDatePicker } from "react-dates"
 import moment from "moment"
+import * as uuid from "uuid"
 
 import "react-dates/lib/css/_datepicker.css"
 import "react-dates/initialize"
@@ -9,10 +10,10 @@ export class TaskForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: props.task ? props.task.id : "",
+            id: props.task ? props.task.id : uuid(),
             task_msg: props.task ? props.task.task_msg : "",
             task_date: props.task ? moment(props.task.task_date) : moment(),
-            task_time: props.task ? props.task.task_time : "",
+            task_time: props.task ? props.task.task_time : 0,
             assigned_user: props.task ? props.task.assigned_user : "",
             calendarFocused: false,
         }
@@ -51,10 +52,9 @@ export class TaskForm extends Component {
             console.log("Form submitted!")
 
             this.props.onSubmit({
-                id: this.state.id,
                 task_date: this.state.task_date.format("YYYY-MM-DD"),
                 task_msg: this.state.task_msg,
-                task_time: this.state.task_time.valueOf(),
+                task_time: parseInt(this.state.task_time),
                 assigned_user: this.state.assigned_user,
             })
             this.props.toggleClosed({
@@ -68,6 +68,13 @@ export class TaskForm extends Component {
             toggleForm: false,
         })
         this.setState(() => ({}))
+    }
+    componentDidMount() {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+        this.setState({
+            currentUser,
+            assigned_user: currentUser.result.user_id,
+        })
     }
 
     render() {
@@ -103,7 +110,7 @@ export class TaskForm extends Component {
                             <div className="time-container">
                                 <label>Time</label>
                                 <input
-                                    type="time"
+                                    type="number"
                                     name="task_time"
                                     placeholder="Time"
                                     onChange={this.onTimeChange}
@@ -119,6 +126,7 @@ export class TaskForm extends Component {
                                 placeholder="User"
                                 onChange={this.onAssignedUser}
                                 value={this.state.assigned_user}
+                                disabled
                             />
                         </div>
                         <div className="buttons-container">

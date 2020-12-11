@@ -1,15 +1,7 @@
 import { React, Component } from "react"
 import TaskForm from "./TaskForm"
-import {
-    addTask,
-    removeTask,
-    editTask,
-    fetchTask,
-    deleteTask,
-} from "../actions/task"
-
+import { postTask, putTask, fetchTask, deleteTask } from "../actions/task"
 import { PencilSquare, Trash } from "react-bootstrap-icons"
-
 import { connect } from "react-redux"
 
 class Task extends Component {
@@ -66,24 +58,25 @@ class Task extends Component {
                             onSubmit={(task_payload) => {
                                 Object.keys(this.state.selectedTask).length ===
                                 0
-                                    ? this.props.dispatch(addTask(task_payload))
-                                    : this.props.dispatch(
-                                          editTask(
-                                              task_payload.id,
-                                              task_payload
-                                          )
+                                    ? this.props.postTask(task_payload)
+                                    : this.props.putTask(
+                                          this.state.selectedTask.id,
+                                          task_payload
                                       )
                             }}
                         />
                     )}
 
                     <div className="task-lists-container">
-                        <div className="task-lists">
-                            {this.props.task_payload.map((val, index) => (
-                                <div className="list" key={index}>
+                        {this.props.task_payload.map((val, index) => (
+                            <div key={index} className="task-lists">
+                                <div className="list">
                                     <label>{val.task_msg}</label>
-                                    <label>{val.task_date}</label>
-
+                                    <label id="date-label">
+                                        {val.task_date}
+                                    </label>
+                                </div>
+                                <div className="btn-list">
                                     <button
                                         className="list-edit-btn"
                                         onClick={() => this.handleEdit(val.id)}
@@ -99,8 +92,8 @@ class Task extends Component {
                                         <Trash />
                                     </button>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -119,6 +112,12 @@ function mapDispatchToProps(dispatch) {
         // This function will be available in component as `this.props.fetchTask`
         fetchTask: function () {
             dispatch(fetchTask())
+        },
+        postTask: function (task_payload) {
+            dispatch(postTask(task_payload))
+        },
+        putTask: function (id, task_payload) {
+            dispatch(putTask(id, task_payload))
         },
         deleteTask: function (id) {
             dispatch(deleteTask(id))

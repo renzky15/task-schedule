@@ -17,6 +17,12 @@ export const AuthProvider = ({ children }) => {
             getUser().then((result) => {
                 setCurrentUser(result)
                 setPending(false)
+                localStorage.setItem(
+                    "currentUser",
+                    JSON.stringify({
+                        result,
+                    })
+                )
             })
         }
     }, [])
