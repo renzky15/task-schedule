@@ -1,13 +1,15 @@
-import { createStore, combineReducers } from "redux"
+import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import TaskReducer from "../reducers/TaskReducer"
+import thunk from "redux-thunk"
 
 export default () => {
+    const composeEnhancer =
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
     const store = createStore(
         combineReducers({
             task_payload: TaskReducer,
         }),
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeEnhancer(applyMiddleware(thunk))
     )
     return store
 }

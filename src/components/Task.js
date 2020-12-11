@@ -1,6 +1,13 @@
 import { React, Component } from "react"
 import TaskForm from "./TaskForm"
-import { addTask, removeTask, editTask } from "../actions/task"
+import {
+    addTask,
+    removeTask,
+    editTask,
+    fetchTask,
+    deleteTask,
+} from "../actions/task"
+
 import { PencilSquare, Trash } from "react-bootstrap-icons"
 
 import { connect } from "react-redux"
@@ -30,7 +37,10 @@ class Task extends Component {
         })
     }
     handleRemove = (id) => {
-        this.props.dispatch(removeTask({ id }))
+        this.props.deleteTask(id)
+    }
+    componentDidMount() {
+        this.props.fetchTask()
     }
     render() {
         return (
@@ -103,4 +113,16 @@ const mapStateToProps = (state) => {
         task_payload: state.task_payload,
     }
 }
-export default connect(mapStateToProps)(Task)
+
+function mapDispatchToProps(dispatch) {
+    return {
+        // This function will be available in component as `this.props.fetchTask`
+        fetchTask: function () {
+            dispatch(fetchTask())
+        },
+        deleteTask: function (id) {
+            dispatch(deleteTask(id))
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Task)

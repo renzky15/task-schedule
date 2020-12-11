@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { SingleDatePicker } from "react-dates"
 import moment from "moment"
-import { v4 as uuidv4 } from "uuid"
+
 import "react-dates/lib/css/_datepicker.css"
 import "react-dates/initialize"
 
@@ -9,7 +9,7 @@ export class TaskForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: props.task ? props.task.id : uuidv4(),
+            id: props.task ? props.task.id : "",
             task_msg: props.task ? props.task.task_msg : "",
             task_date: props.task ? moment(props.task.task_date) : moment(),
             task_time: props.task ? props.task.task_time : "",
@@ -52,9 +52,9 @@ export class TaskForm extends Component {
 
             this.props.onSubmit({
                 id: this.state.id,
-                task_date: this.state.task_date.format("MM/DD/YY"),
+                task_date: this.state.task_date.format("YYYY-MM-DD"),
                 task_msg: this.state.task_msg,
-                task_time: this.state.task_time,
+                task_time: this.state.task_time.valueOf(),
                 assigned_user: this.state.assigned_user,
             })
             this.props.toggleClosed({

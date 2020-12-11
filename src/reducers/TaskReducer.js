@@ -1,9 +1,13 @@
+import { postTask } from "../api/task"
 const taskReducerDefaultState = []
 
 export default (state = taskReducerDefaultState, action) => {
     switch (action.type) {
         case "ADD_TASK":
+            postTask(action.payload)
             return [...state, action.task_payload]
+        case "FETCH_TASKS":
+            return [...action.task_payload]
         case "REMOVE_TASK":
             return state.filter(({ id }) => id !== action.id)
 
