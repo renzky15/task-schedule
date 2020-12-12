@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { login } from "../util/login"
-import { getUser } from "../api/task"
+import { getUser, login } from "../api/task"
 
 export const AuthContext = React.createContext()
 export const AuthProvider = ({ children }) => {
@@ -9,18 +8,24 @@ export const AuthProvider = ({ children }) => {
     const [pending, setPending] = useState(true)
 
     useEffect(() => {
-        if (login()) {
-            getUser().then((result) => {
-                setCurrentUser(result)
-                setPending(false)
-                localStorage.setItem(
-                    "currentUser",
-                    JSON.stringify({
-                        result,
+        async function handleLogin() {
+            await login()
+            if ("login" in localStorage) {
+                try {
+                    await getUser().then((result) => {
+                        localStorage.setItem(
+                            "currentUser",
+                            JSON.stringify({
+                                result,
+                            })
+                        )
+                        setCurrentUser(result)
+                        setPending(false)
                     })
-                )
-            })
+                } catch (error) {}
+            }
         }
+        handleLogin()
     }, [])
 
     if (pending) {

@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import Task from "./components/Task"
 
 import { AuthProvider } from "./util/Auth"
+import { login } from "./api/task"
 
 const store = configStore()
 

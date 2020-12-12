@@ -3,6 +3,7 @@ import TaskForm from "./TaskForm"
 import { postTask, putTask, fetchTask, deleteTask } from "../actions/task"
 import { PencilSquare, Trash } from "react-bootstrap-icons"
 import { connect } from "react-redux"
+import { login, getUser } from "../api/task"
 
 class Task extends Component {
     constructor(props) {
@@ -110,6 +111,7 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
     return {
         // This function will be available in component as `this.props.fetchTask`
+
         fetchTask: function () {
             dispatch(fetchTask())
         },
