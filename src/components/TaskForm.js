@@ -88,7 +88,7 @@ export class TaskForm extends Component {
                         <div className="desc-container">
                             <label>Task Description</label>
                             <input
-                                type="test"
+                                type="text"
                                 name="task_msg"
                                 placeholder="Description"
                                 autoFocus

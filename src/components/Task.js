@@ -1,7 +1,7 @@
 import { React, Component } from "react"
 import TaskForm from "./TaskForm"
 import { postTask, putTask, fetchTask, deleteTask } from "../actions/task"
-import { PencilSquare, Trash } from "react-bootstrap-icons"
+import { PencilSquare, Trash, Plus } from "react-bootstrap-icons"
 import { connect } from "react-redux"
 import { login, getUser } from "../api/task"
 
@@ -45,7 +45,7 @@ class Task extends Component {
                         </div>
                         <div className="task-button">
                             <button onClick={this.handleShowForm}>
-                                Add Task
+                                <Plus />
                             </button>
                         </div>
                     </div>
